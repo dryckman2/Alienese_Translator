@@ -3,8 +3,8 @@ package org.example;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -18,24 +18,28 @@ public class App extends Application {
 
 
         GridPane gridPane = new GridPane();
-
+        //TODO: Make this its own file
         for (char i = 'a'; i <= 'z'; i++) {
-            Button button = new Button();
-            button.setGraphic(AlieneseOne.getSymbol(i));
-            button.setText(i + "\n");
-            button.setTextAlignment(TextAlignment.CENTER);
-            gridPane.add(button, (i - 'a') % 10, (i - 'a') / 10);
+            addSymbolButtonAtIndex(i, gridPane, (i - 'a') % 10, (i - 'a') / 10);
         }
 
-        for (char i = '0'; i<='9';i++){
-            Button button = new Button();
-            button.setGraphic(AlieneseOne.getSymbol(i));
-            button.setText(i + "\n");
-            button.setTextAlignment(TextAlignment.CENTER);
-            gridPane.add(button, (i - '0') % 10, 3);
+        for (char i = '0'; i <= '9'; i++) {
+            addSymbolButtonAtIndex(i, gridPane, (i - '0') % 10, 3);
+
         }
 
-        primaryStage.setScene(new Scene(gridPane, 500,  500));
+        primaryStage.setScene(new Scene(gridPane, 500, 500));
         primaryStage.show();
+    }
+
+    public void addSymbolButtonAtIndex(char c, GridPane gridPane, int x, int y) {
+        Button button = new Button(String.valueOf(c));
+        button.setGraphic(AlieneseOne.getSymbol(c));
+        button.setContentDisplay(ContentDisplay.TOP);
+        button.setOnAction((action) -> {
+            Button s = (Button) action.getSource();
+            System.out.println(s.getText());
+        });
+        gridPane.add(button, x, y);
     }
 }
