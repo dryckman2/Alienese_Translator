@@ -1,35 +1,41 @@
 package org.example;
 
-import java.awt.*;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
-import javax.swing.*;
-
-/**
- * Hello world!
- */
-public class App {
+public class App extends Application {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("My First GUI");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(1000, 1000);
+        launch(args);
+    }
+
+    @Override
+    public void start(Stage primaryStage) {
+        primaryStage.setTitle("Alienese Translator");
+
+
+        GridPane gridPane = new GridPane();
 
         for (char i = 'a'; i <= 'z'; i++) {
-            JButton button = new JButton(AlieneseOne.getSymbol(i).getIcon());
-            button.setText(String.valueOf(i));
-            button.setVerticalTextPosition(AbstractButton.BOTTOM);
-            button.setHorizontalTextPosition(AbstractButton.CENTER);
-            button.setSize(45,45);
-            frame.add(button);
+            Button button = new Button();
+            button.setGraphic(AlieneseOne.getSymbol(i));
+            button.setText(i + "\n");
+            button.setTextAlignment(TextAlignment.CENTER);
+            gridPane.add(button, (i - 'a') % 10, (i - 'a') / 10);
         }
-        for (char i = '0'; i <= '9'; i++) {
-            JButton button = new JButton(AlieneseOne.getSymbol(i).getIcon());
-            button.setText(String.valueOf(i));
-            button.setVerticalTextPosition(AbstractButton.BOTTOM);
-            button.setHorizontalTextPosition(AbstractButton.CENTER);
-            button.setSize(45,45);
-            frame.add(button);
+
+        for (char i = '0'; i<='9';i++){
+            Button button = new Button();
+            button.setGraphic(AlieneseOne.getSymbol(i));
+            button.setText(i + "\n");
+            button.setTextAlignment(TextAlignment.CENTER);
+            gridPane.add(button, (i - '0') % 10, 3);
         }
-        frame.setLayout(new GridLayout(4, 10));
-        frame.setVisible(true);
+
+        primaryStage.setScene(new Scene(gridPane, 500,  500));
+        primaryStage.show();
     }
 }
