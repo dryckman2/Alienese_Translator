@@ -1,6 +1,5 @@
 package org.example;
 
-
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -17,7 +16,6 @@ public class AlieneseOne {
     private static String enteredText;
     private static final HBox displayLine = new HBox();
     private static final TextField tf = new TextField();
-
 
     public static void updateDisplayLine() {
         displayLine.getChildren().clear();
@@ -36,7 +34,6 @@ public class AlieneseOne {
         }
         updateDisplayLine();
     }));
-
 
     public static Node display() {
         StackPane stackPane = new StackPane();
@@ -68,7 +65,6 @@ public class AlieneseOne {
             row++;
         }
 
-
         vBox.getChildren().add(gridPane);
 
         enteredText = "Enter Text here";
@@ -89,7 +85,6 @@ public class AlieneseOne {
         stackPane.getChildren().add(vBox);
         return stackPane;
     }
-
 
     private static void addSymbolButtonAtIndex(char c, GridPane gridPane, int x, int y) {
         Button button = new Button(String.valueOf(c).toUpperCase());
@@ -113,6 +108,5 @@ public class AlieneseOne {
         });
         gridPane.add(button, x, y);
     }
-
 
 }

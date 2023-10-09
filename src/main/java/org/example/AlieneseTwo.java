@@ -1,6 +1,5 @@
 package org.example;
 
-
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
@@ -20,7 +19,6 @@ public class AlieneseTwo {
     private static final HBox displayLine = new HBox();
     private static final TextField tf = new TextField();
 
-
     public static void updateDisplayLine() {
         displayLine.getChildren().clear();
         for (char c : enteredText.toLowerCase().toCharArray()) {
@@ -39,7 +37,6 @@ public class AlieneseTwo {
         updateDisplayLine();
     }));
 
-
     public static Node display() {
         StackPane stackPane = new StackPane();
         VBox vBox = new VBox();
@@ -51,25 +48,25 @@ public class AlieneseTwo {
             addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
             row++;
         }
-//        column += (row / 10) + 1;
-//        row = 0;
-//        for (char c : symbols.NUMBER_CHARS) {
-//            addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
-//            row++;
-//        }
-//        column += (row / 10) + 1;
-//        row = 0;
-//        for (NonStandardChar c : symbols.OTHER_CHARS) {
-//            addSymbolButtonAtIndex(c.charRep(), gridPane, (row % 10), column + (row / 10));
-//            row++;
-//        }
-//        column += (row / 10) + 1;
-//        row = 0;
-//        for (ButtonFunctions bf : COMMAND_BUTTONS) {
-//            addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
-//            row++;
-//        }
-
+        // column += (row / 10) + 1;
+        // row = 0;
+        // for (char c : symbols.NUMBER_CHARS) {
+        // addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
+        // row++;
+        // }
+        // column += (row / 10) + 1;
+        // row = 0;
+        // for (NonStandardChar c : symbols.OTHER_CHARS) {
+        // addSymbolButtonAtIndex(c.charRep(), gridPane, (row % 10), column + (row /
+        // 10));
+        // row++;
+        // }
+        // column += (row / 10) + 1;
+        // row = 0;
+        // for (ButtonFunctions bf : COMMAND_BUTTONS) {
+        // addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
+        // row++;
+        // }
 
         vBox.getChildren().add(gridPane);
 
@@ -91,7 +88,6 @@ public class AlieneseTwo {
         stackPane.getChildren().add(vBox);
         return stackPane;
     }
-
 
     private static void addSymbolButtonAtIndex(char c, GridPane gridPane, int x, int y) {
         Button button = new Button(String.valueOf(c));
@@ -115,6 +111,5 @@ public class AlieneseTwo {
         });
         gridPane.add(button, x, y);
     }
-
 
 }
