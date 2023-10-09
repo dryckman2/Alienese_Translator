@@ -1,12 +1,8 @@
 package org.example;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 /**
  * Hello world!
@@ -14,11 +10,26 @@ import javax.swing.JTextArea;
 public class App {
     public static void main(String[] args) {
         JFrame frame = new JFrame("My First GUI");
-//        frame.setFont(new Font(,Font.PLAIN,12));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(300, 300);
-        JButton button = new JButton("Press");
-        frame.getContentPane().add(button); // Adds Button to content pane of frame
+        frame.setSize(1000, 1000);
+
+        for (char i = 'a'; i <= 'z'; i++) {
+            JButton button = new JButton(AlieneseOne.getSymbol(i).getIcon());
+            button.setText(String.valueOf(i));
+            button.setVerticalTextPosition(AbstractButton.BOTTOM);
+            button.setHorizontalTextPosition(AbstractButton.CENTER);
+            button.setSize(45,45);
+            frame.add(button);
+        }
+        for (char i = '0'; i <= '9'; i++) {
+            JButton button = new JButton(AlieneseOne.getSymbol(i).getIcon());
+            button.setText(String.valueOf(i));
+            button.setVerticalTextPosition(AbstractButton.BOTTOM);
+            button.setHorizontalTextPosition(AbstractButton.CENTER);
+            button.setSize(45,45);
+            frame.add(button);
+        }
+        frame.setLayout(new GridLayout(4, 10));
         frame.setVisible(true);
     }
 }
