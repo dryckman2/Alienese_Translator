@@ -2,18 +2,20 @@ package org.example;
 
 
 import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Button;
+import javafx.scene.control.ContentDisplay;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 import java.util.List;
 
-public class AlieneseOne {
+public class AlieneseTwo {
 
-    private static final SymbolSet symbols = new AlieneseOneSymbols();
+    private static final SymbolSet symbols = new AlieneseTwoSymbols();
     private static String enteredText;
     private static final HBox displayLine = new HBox();
     private static final TextField tf = new TextField();
@@ -49,24 +51,24 @@ public class AlieneseOne {
             addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
             row++;
         }
-        column += (row / 10) + 1;
-        row = 0;
-        for (char c : symbols.NUMBER_CHARS) {
-            addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
-            row++;
-        }
-        column += (row / 10) + 1;
-        row = 0;
-        for (NonStandardChar c : symbols.OTHER_CHARS) {
-            addSymbolButtonAtIndex(c.charRep(), gridPane, (row % 10), column + (row / 10));
-            row++;
-        }
-        column += (row / 10) + 1;
-        row = 0;
-        for (ButtonFunctions bf : COMMAND_BUTTONS) {
-            addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
-            row++;
-        }
+//        column += (row / 10) + 1;
+//        row = 0;
+//        for (char c : symbols.NUMBER_CHARS) {
+//            addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
+//            row++;
+//        }
+//        column += (row / 10) + 1;
+//        row = 0;
+//        for (NonStandardChar c : symbols.OTHER_CHARS) {
+//            addSymbolButtonAtIndex(c.charRep(), gridPane, (row % 10), column + (row / 10));
+//            row++;
+//        }
+//        column += (row / 10) + 1;
+//        row = 0;
+//        for (ButtonFunctions bf : COMMAND_BUTTONS) {
+//            addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
+//            row++;
+//        }
 
 
         vBox.getChildren().add(gridPane);

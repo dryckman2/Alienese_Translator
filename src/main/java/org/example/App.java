@@ -16,7 +16,7 @@ public class App extends Application {
         TabPane tabPane = new TabPane();
 
         Tab tab1 = new Tab("Alienese 1", AlieneseOne.display());
-        Tab tab2 = new Tab("Alienese 2", new Label("Currently Not Implemented"));
+        Tab tab2 = new Tab("Alienese 2", AlieneseTwo.display());
 
         tabPane.getTabs().add(tab1);
         tabPane.getTabs().add(tab2);

@@ -12,7 +12,7 @@ public abstract class SymbolSet {
 
     List<Character> NUMBER_CHARS = List.of('0', '1', '2', '3', '4', '5', '6', '7', '8', '9');
 
-    List<NonStandardChar> OTHER_CHARS = List.of(new NonStandardChar("space", ' '),new NonStandardChar("colon", ':'));
+    List<NonStandardChar> OTHER_CHARS = List.of(new NonStandardChar("space", ' '), new NonStandardChar("colon", ':'), new NonStandardChar("comma", ','), new NonStandardChar("dash", '-'), new NonStandardChar("dot", '.'), new NonStandardChar("exclamation", '!'), new NonStandardChar("semicolon", ';'));
 
 
     Map<Character, Image> symbolSet = new HashMap<>();
