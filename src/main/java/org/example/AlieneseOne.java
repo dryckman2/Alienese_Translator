@@ -27,7 +27,7 @@ public class AlieneseOne {
         tf.setText(enteredText);
     }
 
-    static List<ButtonFunctions> COMMAND_BUTTONS = List.of(new ButtonFunctions("clear", () -> {
+    static final List<ButtonFunctions> COMMAND_BUTTONS = List.of(new ButtonFunctions("clear", () -> {
         enteredText = "";
         updateDisplayLine();
     }), new ButtonFunctions("back", () -> {
@@ -92,7 +92,7 @@ public class AlieneseOne {
 
 
     private static void addSymbolButtonAtIndex(char c, GridPane gridPane, int x, int y) {
-        Button button = new Button(String.valueOf(c));
+        Button button = new Button(String.valueOf(c).toUpperCase());
         button.setMinSize(50, 50);
         button.setGraphic(symbols.getSymbol(c));
         button.setContentDisplay(ContentDisplay.TOP);
