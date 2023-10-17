@@ -8,21 +8,48 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class AlieneseOne {
 
     private static final SymbolSet symbols = new AlieneseOneSymbols();
     private static String enteredText;
-    private static final HBox displayLine = new HBox();
+    private static final VBox displayLine = new VBox();
     private static final TextField tf = new TextField();
 
     public static void updateDisplayLine() {
         displayLine.getChildren().clear();
-        for (char c : enteredText.toLowerCase().toCharArray()) {
-            displayLine.getChildren().add(symbols.getSymbol(c));
+        List<String> lines = wordWrap(enteredText.toLowerCase());
+        int i = 0;
+        for (String line : lines) {
+            displayLine.getChildren().add(new HBox());
+            HBox hb = (HBox) displayLine.getChildren().get(i);
+            for (char c : line.toCharArray()) {
+                hb.getChildren().add(symbols.getSymbol(c));
+            }
+            i++;
         }
         tf.setText(enteredText);
+    }
+
+    /**
+     * This is a hacky work around, but I want to sleep.
+     * The method splits up entered text into the different lines for printing
+     */
+    private static List<String> wordWrap(String enteredText) {
+        String[] words = enteredText.split(" ");
+        List<String> results = new ArrayList<>(List.of(""));
+        int j = 0;
+        for (String word : words) {
+            if (results.get(j).length() + word.length() > 13) {
+                results.add("");
+                j++;
+            }
+            results.set(j, results.get(j) + word + " ");
+        }
+        return results.stream().filter(n -> !n.isEmpty()).collect(Collectors.toList());
     }
 
     static final List<ButtonFunctions> COMMAND_BUTTONS = List.of(new ButtonFunctions("clear", () -> {
