@@ -12,6 +12,16 @@ import javafx.scene.text.Font;
 
 import java.util.List;
 
+/*
+Mathematics for translation of AlienseTwo
+new symbol = (symbol # - previous symbol #) mod 26
+e.g., first letter = 2 = c
+second letter = 16 so to find new symbol -> 16-2=14 -> O
+third letter = 19 so to find new symbol -> 19-16=3 -> D
+
+encoding
+new symbol = (symbol # + previous symbol #) mod 26
+ */
 public class AlieneseTwo {
 
     private static final SymbolSet symbols = new AlieneseTwoSymbols();
@@ -21,8 +31,20 @@ public class AlieneseTwo {
 
     public static void updateDisplayLine() {
         displayLine.getChildren().clear();
+        int count = 0;
+        char previousChar = 0;
+        System.out.println(enteredText);
         for (char c : enteredText.toLowerCase().toCharArray()) {
-            displayLine.getChildren().add(symbols.getSymbol(c));
+            if(count == 0) {
+                previousChar = c;
+                displayLine.getChildren().add(symbols.getSymbol(c));
+            } else{
+                char newSymbol = (char) (((c + previousChar) % 26) + 'a');
+                displayLine.getChildren().add(symbols.getSymbol(newSymbol));
+                previousChar = c;
+            }
+            count++;
+            // new symbol = (symbol # + previous symbol #) mod 26
         }
         tf.setText(enteredText);
     }
@@ -111,5 +133,6 @@ public class AlieneseTwo {
         });
         gridPane.add(button, x, y);
     }
+
 
 }
