@@ -29,19 +29,23 @@ public class AlieneseTwo {
     private static final HBox displayLine = new HBox();
     private static final TextField tf = new TextField();
 
-    public static void updateDisplayLine() {
+    public static void updateDisplayLine_encoding() {
         displayLine.getChildren().clear();
         int count = 0;
         char previousChar = 0;
-        System.out.println(enteredText);
         for (char c : enteredText.toLowerCase().toCharArray()) {
-            if(count == 0) {
-                previousChar = c;
+            if (count == 0) {
+                previousChar = (char) (c - 'a');
                 displayLine.getChildren().add(symbols.getSymbol(c));
-            } else{
-                char newSymbol = (char) (((c + previousChar) % 26) + 'a');
-                displayLine.getChildren().add(symbols.getSymbol(newSymbol));
-                previousChar = c;
+            } else {
+                if (c == ' ') {
+                    displayLine.getChildren().add(symbols.getSymbol(c));
+                } else {
+                    char x = (char) (c - 'a');
+                    char newSymbol = (char) (((x + previousChar) % 26) + 'a');
+                    displayLine.getChildren().add(symbols.getSymbol(newSymbol));
+                    previousChar = (char) ((x + previousChar) % 26);
+                }
             }
             count++;
             // new symbol = (symbol # + previous symbol #) mod 26
@@ -49,14 +53,56 @@ public class AlieneseTwo {
         tf.setText(enteredText);
     }
 
+
+    public static void updateDisplayLine_decoder(String adding) {
+        displayLine.getChildren().clear();
+        int count = 0;
+        char previousChar = 0;
+        for (char c : enteredText.toLowerCase().toCharArray()) {
+            if (count == 0) {
+                previousChar = (char) (c - 'a');
+                displayLine.getChildren().add(symbols.getSymbol(c));
+            } else {
+                if (c == ' ') {
+                    displayLine.getChildren().add(symbols.getSymbol(c));
+                    previousChar = 0;
+                } else {
+                    char x = (char) (c - 'a');
+                    char newSymbol = (char) (((x + previousChar) % 26) + 'a');
+                    displayLine.getChildren().add(symbols.getSymbol(newSymbol));
+                    previousChar = (char) ((x + previousChar) % 26);
+                }
+            }
+            count++;
+            // new symbol = (symbol # + previous symbol #) mod 26
+        }
+        displayLine.getChildren().add(symbols.getSymbol(adding.toLowerCase().charAt(0)));
+        if (enteredText.isEmpty()) {
+            enteredText = adding;
+        } else {
+            if (adding.toLowerCase().charAt(0) == ' ') {
+                enteredText += " ";
+            } else {
+                System.out.println((int) previousChar);
+                int n = ((adding.toLowerCase().charAt(0) - 'a') - previousChar);
+                if (n < 0) {
+                    n += 26;
+                }
+                enteredText += (char) (n + 'a');
+            }
+
+        }
+        tf.setText(enteredText);
+    }
+
     static List<ButtonFunctions> COMMAND_BUTTONS = List.of(new ButtonFunctions("clear", () -> {
         enteredText = "";
-        updateDisplayLine();
+        updateDisplayLine_encoding();
     }), new ButtonFunctions("back", () -> {
         if (!enteredText.isEmpty()) {
             enteredText = enteredText.substring(0, enteredText.length() - 1);
         }
-        updateDisplayLine();
+        updateDisplayLine_encoding();
     }));
 
     public static Node display() {
@@ -70,25 +116,12 @@ public class AlieneseTwo {
             addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
             row++;
         }
-        // column += (row / 10) + 1;
-        // row = 0;
-        // for (char c : symbols.NUMBER_CHARS) {
-        // addSymbolButtonAtIndex(c, gridPane, (row % 10), column + (row / 10));
-        // row++;
-        // }
-        // column += (row / 10) + 1;
-        // row = 0;
-        // for (NonStandardChar c : symbols.OTHER_CHARS) {
-        // addSymbolButtonAtIndex(c.charRep(), gridPane, (row % 10), column + (row /
-        // 10));
-        // row++;
-        // }
-        // column += (row / 10) + 1;
-        // row = 0;
-        // for (ButtonFunctions bf : COMMAND_BUTTONS) {
-        // addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
-        // row++;
-        // }
+        addSymbolButtonAtIndex(' ', gridPane, (row % 10), column + (row / 10));
+        row++;
+        for (ButtonFunctions bf : COMMAND_BUTTONS) {
+            addFunctionButton(bf, gridPane, (row % 10), column + (row / 10));
+            row++;
+        }
 
         vBox.getChildren().add(gridPane);
 
@@ -100,11 +133,11 @@ public class AlieneseTwo {
         tf.setOnAction((event) -> {
             TextField t = (TextField) event.getSource();
             enteredText = t.getText();
-            updateDisplayLine();
+            updateDisplayLine_encoding();
         });
         vBox.getChildren().add(tf);
 
-        updateDisplayLine();
+        updateDisplayLine_encoding();
         vBox.getChildren().add(displayLine);
 
         stackPane.getChildren().add(vBox);
@@ -118,8 +151,8 @@ public class AlieneseTwo {
         button.setContentDisplay(ContentDisplay.TOP);
         button.setOnAction((action) -> {
             Button s = (Button) action.getSource();
-            enteredText += s.getText();
-            updateDisplayLine();
+//            enteredText += s.getText();
+            updateDisplayLine_decoder(s.getText());
         });
         gridPane.add(button, x, y);
     }
@@ -129,7 +162,7 @@ public class AlieneseTwo {
         button.setMinSize(50, 50);
         button.setOnAction((action) -> {
             bf.function().run();
-            updateDisplayLine();
+            updateDisplayLine_encoding();
         });
         gridPane.add(button, x, y);
     }
